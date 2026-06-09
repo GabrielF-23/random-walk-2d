@@ -1,19 +1,18 @@
-import numpy as np
 import matplotlib.pyplot as plt 
 import random as random
 
 def rw_2d(n):
-    '''Caminhante Aleatorio em 2D, onde 'n' = número de passos - 
+    '''Caminhante Aleatório em 2D, onde 'n' = número de passos - 
        Random Walk 2D, where 'n' = number of steps'''
 
-        #Origem em x = 0
+    #Origem em x = 0
     #Origin at x = 0
     x = 0
     y = 0
     a = [0]
     b = [0]
 
-    #Condição do caminhante aleatorio em 2D 25% direita, 25% cima, 25% esquerda e 25% baixo.
+    #Condição do caminhante aleatório em 2D 25% direita, 25% cima, 25% esquerda e 25% baixo.
     #Random Walk 2D condition 25% right, 25% top, 25% left and 25% bottom.
     for i in range(n):
         step = random.choice([1,2,3,4])
@@ -34,11 +33,11 @@ def rw_2d(n):
 
 #Rodadas
 #Runs.
-r = 1000
+r = 10
 
 #Passos.
 #Steps.
-s = 1000
+s = 10
 
 #Lista de caminhadas.
 #Walk list.
@@ -66,17 +65,31 @@ for a,b in walk:
     endp_x.append(a[-1])
     endp_y.append(b[-1])
 
+
+#Título principal
+#Main title
+fig.suptitle(
+    "Caminhante Aleatório 2D",
+    fontsize=14
+)
+
+if r == 1:
+    sim = f'{r} Simulação'
+else:
+    sim = f'{r} Simulações'
+
+
 #Gráfico das trajetórias dos caminhantes.
 #Random walk trajectories graph.
-axs[0,0].set_title(f"Trajetória dos caminhantes. {s} passos - {r} runs")
+axs[0,0].set_title(f"Trajetória dos Caminhantes\n {s} passos - {sim}")
 axs[0,0].set_xlabel("X")
 axs[0,0].set_ylabel("Y")
 axs[0,0].grid()
 
-#Gŕafico de disperção das posições finais.
+#Gŕafico de dispersão das posições finais.
 #Final position dispersion graph.
 axs[0,1].scatter(endp_x, endp_y)
-axs[0,1].set_title(f"Disperção das posições finais. {s} passos - {r} runs")
+axs[0,1].set_title(f"Dispersão das Posições Finais\n {s} passos - {sim}")
 axs[0,1].set_xlabel("X")
 axs[0,1].set_ylabel("Y")
 axs[0,1].grid()
@@ -84,17 +97,18 @@ axs[0,1].grid()
 #Histograma das posições finais em x.
 #Histogram of final positions at x.
 axs[1,0].hist(endp_x, bins=30)
-axs[1,0].set_title(f"Histograma de posições finais em x. {s} passos - {r} runs")
-axs[1,0].set_xlabel("Posição final em x")
-axs[1,0].set_ylabel("Frequência")
+axs[1,0].set_title(f"Histograma de Posições Finais em X\n {s} passos - {sim}")
+axs[1,0].set_xlabel("Posição final em X")
+axs[1,0].set_ylabel("Probabilidade de cair em X")
 axs[1,0].grid()
 
 #Histograma das posições finais em y.
 #Histogram of final positions at y.
 axs[1,1].hist(endp_y, bins=30)
-axs[1,1].set_title(f"Histograma de posições finais em y. {s} passos - {r} runs")
+axs[1,1].set_title(f"Histograma de Posições Finais em Y \n {s} passos - {sim}")
 axs[1,1].set_xlabel("Posição final em Y")
-axs[1,1].set_ylabel("Frequência")
+axs[1,1].set_ylabel("Probabilidade de cair em Y")
 axs[1,1].grid()
 
+plt.tight_layout()
 plt.show()
