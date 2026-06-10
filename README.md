@@ -60,7 +60,6 @@ Mostra a distruibuição das posições finais de cada caminhante no eixo Y.
 - Python
 - Matplotlib
 - Random
-- Numpy
 
 ## Licença
 Este projeto está licenciado sob a licença MIT.
