@@ -1,79 +1,116 @@
-# Gerador de Caminhante Aleatório 2D
-Random Walk 2D Generator
+# Gerador de Caminhante Aleatório Gaussiano 2D
+Gaussian Random Walk 2D Generator
 
 🇧🇷 [Português](#português) | 🇺🇸 [English](#english)
-# Português
-## Sobre
-Esse programa foi desenvolvido como exercicio de aprendizado durante minha Iniciação Cientifica.
 
-O objetivo desse programa foi compreender os conceitos fundamentais de processos estocasticos, simulações computacionais e modelagem matematica atraves de um modelo simples de caminhante aleatorio em duas dimensões em Python.
+# Português
+
+## Sobre
+
+Esse programa foi desenvolvido como exercício de aprendizado durante minha Iniciação Científica.
+
+O objetivo desse programa foi compreender os conceitos fundamentais de processos estocásticos, difusão, simulações computacionais e modelagem matemática através de um modelo de caminhante aleatório gaussiano em duas dimensões utilizando Python.
 
 ## Descrição do modelo
-Um caminhante começa de um ponto x = 0 (origem).
-A cada passo ele tem 25% de chance de escolher dar um passo para direita, esquerda, cima ou baixo.<br>
-Cada passo novo é dado por:
 
-        step = random.choice([1,2,3,4])
+Um caminhante inicia sua trajetória na origem do plano cartesiano,
 
-        if step == 1:
-            x += 1
-        elif step == 2:
-            x -= 1
-        elif step == 3:
-            y += 1
-        else:
-            y -= 1
-            
-Quando `step == 1`: ele soma 1 a posição x dele.<br>
-Quando `step == 2`: ele subtrai 1 da posição x dele.<br>
-Quando `step == 3`: ele soma 1 a posição y dele.<br>
-Quando `step == 4`: ele subtrai 1 da posição y dele.<br>
+```
+(x, y) = (0,0)
+```
 
-Cada passo tem a mesma probabilidade de acontecer.<br>
+A cada passo, um novo deslocamento é gerado em coordenadas polares.
 
-### Parametros do modelo
-Temos 2 parametros nesse modelo:<br>
-- `r`: número de caminhantes.<br>
-- `s`: número de passos.<br>
+O ângulo é sorteado a partir de uma distribuição uniforme
 
-Altere como desejar, por padrão o modelo vem:<br>
-`r = 1000`<br>
-`s = 1000`
+```
+θ ~ U(0,2π)
+```
 
-### Gráficos
-Após escolher a quantidade de caminhantes e a quantidade de passos, execute o programa e 
-ele vai gerar quatro gráficos:<br>
+enquanto o módulo do deslocamento é obtido por uma distribuição normal
 
-#### Gráfico A: Trajetória dos caminhantes
-Mostra a trajetória de todos os caminhantes em um gráfico X x Y.
+```
+ρ ~ N(0,σ)
+```
 
-#### Gráfico B: Disperção das posições finais
-Mostra a disperção das posições finais de cada caminhante.
+No código, esses valores são gerados por
 
-#### Gráfico C: Histograma das posições finais em X
-Mostra a distruibuição das posições finais de cada caminhante no eixo X.
+```python
+theta = np.random.uniform(0, 2*np.pi)
+rho = np.random.normal(0, sigma)
+```
 
-#### Gráfico D: Histograma das posições finais em Y
-Mostra a distruibuição das posições finais de cada caminhante no eixo Y.
+As coordenadas do caminhante são então atualizadas por
+
+```python
+x += rho*np.cos(theta)
+y += rho*np.sin(theta)
+```
+
+Como o ângulo é uniformemente distribuído, não existe direção preferencial para o movimento. Já o parâmetro σ controla a intensidade das flutuações de cada passo.
+
+Valores maiores de σ produzem trajetórias mais espalhadas, enquanto valores menores resultam em movimentos mais suaves.
+
+## Parâmetros do modelo
+
+O modelo possui três parâmetros principais:
+
+- `n_steps`: número de passos de cada caminhante;
+- `n_runs`: número total de caminhantes simulados;
+- `sigma`: desvio padrão da distribuição normal utilizada para gerar o comprimento de cada passo.
+
+Por padrão o programa utiliza
+
+```
+n_steps = 500
+n_runs = 1000
+sigma = 1
+```
+
+## Gráficos
+
+Após executar o programa, são gerados três gráficos.
+
+### Gráfico A — Trajetória de um caminhante
+
+Mostra o caminho percorrido por um único caminhante no plano XY, indicando a posição inicial e a posição final.
+
+### Gráfico B — Posições finais
+
+Apresenta um gráfico de dispersão contendo as posições finais de todos os caminhantes após o término da simulação.
+
+### Gráfico C — Deslocamento Quadrático Médio (MSD)
+
+Mostra o deslocamento quadrático médio
+
+```
+⟨r²(t)⟩
+```
+
+calculado ao longo da simulação.
+
+O gráfico também apresenta a curva teórica utilizada para comparação
+
+```
+⟨r²(t)⟩ = σ² t
+```
+
+permitindo comparar os resultados numéricos com o comportamento esperado do processo difusivo.
 
 ## Ferramentas e Bibliotecas
+
 - Python
+- NumPy
 - Matplotlib
-- Random
 
 ## Licença
+
 Este projeto está licenciado sob a licença MIT.
 
 ## Autor
+
 Gabriel Freitas.
 
 # English
+
 WIP.
-
-
-
-
-
-
-
- 
